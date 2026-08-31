@@ -6,10 +6,19 @@
 -- create a server
 -- listen to port 7777
 -- Make/write request handlers for /test, /hello
--- Inatall nodemon and update scripts inside package.json
+-- Install nodemon and update scripts inside package.json
 -- Difference b/w ~ and ^ 
 -- what are dependencies 
 -- what is the use of -g while install npm 
 
 
 // day2 
+--initialize git
+-- .gitignore 
+-- why to push package-lock.json to github
+-- create a remote repo on github
+-- push all code to remote origin
+-- Play with route and route-extensions ex. /hello, /hello/2u, /xyz
+==>> NOTE : Order of the routes matter a lot
+
+

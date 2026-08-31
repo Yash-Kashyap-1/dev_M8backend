@@ -81,3 +81,5 @@ app.listen(3000, ()=>{
 
 // Installing nodemon globally means you do not need to install it again for future projects on this machine. 
 // It is installed globally across your entire computer, not just inside your current project folder.
+
+

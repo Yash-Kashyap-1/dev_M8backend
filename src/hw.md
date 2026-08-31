@@ -22,5 +22,6 @@
 ==>> NOTE : Order of the routes matter a lot
 -- Install postman app and make a workspace/collection and then ==> test api call
 -- Write logic to handle GET, POST, PATCH, DELETE API calls and test them on postman
-
+-- Explore routing and use of ?,*,+,() in routes.
+-- Use of Regex in Routes /a/ /.*fly$/
 

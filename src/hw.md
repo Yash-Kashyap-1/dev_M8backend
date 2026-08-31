@@ -20,5 +20,7 @@
 -- push all code to remote origin
 -- Play with route and route-extensions ex. /hello, /hello/2u, /xyz
 ==>> NOTE : Order of the routes matter a lot
+-- Install postman app and make a workspace/collection and then ==> test api call
+-- Write logic to handle GET, POST, PATCH, DELETE API calls and test them on postman
 
 

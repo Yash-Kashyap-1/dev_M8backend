@@ -25,3 +25,12 @@
 -- Explore routing and use of ?,*,+,() in routes.
 -- Use of Regex in Routes /a/ /.*fly$/
 
+
+// day3 
+
+//day4
+install mongoose library
+connect your application to db of cluster 
+call the connectDB fxn and connect to DB before starting application on 7777
+create a user schema and usermodel yourself and can add as many fields you want to 
+crate a post signup api to add data to database and then push some documents using Post API calls using PostMan.

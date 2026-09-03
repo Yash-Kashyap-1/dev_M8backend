@@ -34,3 +34,12 @@ connect your application to db of cluster
 call the connectDB fxn and connect to DB before starting application on 7777
 create a user schema and usermodel yourself and can add as many fields you want to 
 crate a post signup api to add data to database and then push some documents using Post API calls using PostMan.
+
+
+
+//day5
+
+difference b/w js object and json
+can't hava a comma at the end in json
+Add the express.json() middleware to your app 
+Make your signup api dynamic to receive data from the end user/postman

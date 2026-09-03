@@ -3,3 +3,4 @@ while testing from postman we should send the data right from postman so that it
 You send the Json data the server should read it push it to database.
 Data which is sent is sent in JSON format and our server is not able to read that JSON data to read that Json data we need help of a middleware. Middleware will check the incoming requests and can read JSON and convert in into JS object put it into body and give us access to data in code. 
 express.json() ==> middleware does ==>reads JSON obj ==>converts it into js object ==>It adds js object back to this request obj in the body ==> now req.body is a js object  
+All database operations are asynchronous in nature.....

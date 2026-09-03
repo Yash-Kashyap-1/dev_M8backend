@@ -43,3 +43,5 @@ difference b/w js object and json
 can't hava a comma at the end in json
 Add the express.json() middleware to your app 
 Make your signup api dynamic to receive data from the end user/postman
+user.findOne() with duplicate email id which object will be returned 
+build feed api that gets all the users and  

@@ -19,3 +19,15 @@ Maye you don't have UI validations but you must always have backend validations
 {timestamp is passed as the second argument in mongoose.Schema}
 Your database should not be polluted ==>> If you are a good coder you should validate everything you can't just trust everything that comes from user side
 ==> Never in your life trust Req.body
+
+
+Authentication
+
+Passwords should be stored in hashed/encrypted format and nobody should be able to see the password in the database.
+The npm package used for encrypting the password is bcrypt.
+This package basically gives you functions to hash your passwords as well as to validate the password.
+The more the number of salt rounds the tougher it becomes to decrypt the password
+more salt rounds => more encryption level 
+
+once you have encrypted the password you can't decrypt it. Once you encrypted it you can't get the plaintext back.
+Only the user knows the password.

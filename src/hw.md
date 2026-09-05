@@ -67,3 +67,11 @@ Add API level validation on Patch Request & signup post api
 Add API validations for each field in schema 
 Install validator library and explore the methods it has and use them 
 
+Validate data in signup api by creating helper/util function
+Install bcrypt package.
+Create a password hash using bcrypt.hash & save the user with encrypted password
+
+Create login api and write the logic by your own 
+compare passwords and throw errors if email or password is invalid
+
+

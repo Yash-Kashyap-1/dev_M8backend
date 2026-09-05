@@ -1,23 +1,67 @@
 const express = require("express");
 const {connectDB} = require("./config/database");
 const {userModel} = require("./models/user");
+const validateSignupData = require("./utils/validation");
+const bcrypt = require("bcrypt");
 const app = express();
 
 app.use(express.json()); // Now our middleware will be activated for all the routes 
 
+
 app.post("/signup",async (req,res)=>{
     
+    try{
+    // First thing should be the validation of the data
+    validateSignupData(req);
+    
 
+    const {firstName, lastName, email, password} = req.body;
+    // After this encrypt the password and then store the user in database
+
+    const passWordHash = await bcrypt.hash(password, 10);  // this is also an asynchronous o/pn and it returns a promise
+    console.log(passWordHash);
+    
     // console.log();
-    const u1 = new userModel(req.body);  // creating a new instance of user model 
+    const u1 = new userModel({
+        firstName, lastName, email, password : passWordHash
+    });  // creating a new instance of user model 
 
-    try{await u1.save(); // this data will be saved to our database and this fxn will return you a promise 
+    await u1.save(); // this data will be saved to our database and this fxn will return you a promise 
     res.send("User added successfully to database!")
     }catch(err){
-        res.status(400).send(`can't add data please enter the required fields ${err.message}`);
+        res.status(400).send(`Error: ${err.message}`);
     }
 });
 
+// A login API uses the HTTP POST method primarily because it is the most secure, 
+// functional, and semantically correct choice for handling sensitive user credentials.
+
+app.post("/login", async (req,res)=>{
+
+    // Login Authentication 
+
+    try{
+        const {email, password} = req.body;
+        // First we will check if the user with the given email has sign up earlier or not which means 
+        // the user exists in our app or not basically check if the email id is there in the database or not 
+        const user = await userModel.findOne({email : email});
+        if(!user){
+            throw new Error("user doesn't exist// Invalid credentials"); // The attaker should not know whether your password was wrong or email id was wrong
+        }
+        const isPasswordValid = await bcrypt.compare(password, user.password); // This is also a promise and returns true or false
+
+        if(isPasswordValid){
+            res.send("Login successful");
+        }
+        else{
+            throw new Error("Invalid Password!!"); 
+        }
+    }catch(err){
+        res.status(400).send("Error: "+err.message);
+    }
+
+
+});
 
 // Get user by email
 app.get("/user/email",async (req,res)=>{

@@ -65,4 +65,5 @@ Improve the database schema - put appropriate validations on each field in schem
 Add timestamps to the user schema 
 Add API level validation on Patch Request & signup post api 
 Add API validations for each field in schema 
+Install validator library and explore the methods it has and use them 
 

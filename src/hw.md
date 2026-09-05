@@ -44,4 +44,12 @@ can't hava a comma at the end in json
 Add the express.json() middleware to your app 
 Make your signup api dynamic to receive data from the end user/postman
 user.findOne() with duplicate email id which object will be returned 
-build feed api that gets all the users and  
+build feed api that gets all the users 
+create an api-Get User by Id
+create a delete API to delete a user by model id method
+difference b/w patch and put
+create a delete user api
+create an update user api 
+explore mongoose doc for model
+What are options in Model.findOneandUpdate methods
+===>> create an api which updates the user using email id like user id sai refer na krke email id sai document refer krke usko update krne ka hai  ==> used find one and update

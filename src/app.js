@@ -14,7 +14,7 @@ app.post("/signup",async (req,res)=>{
     try{await u1.save(); // this data will be saved to our database and this fxn will return you a promise 
     res.send("User added successfully to database!")
     }catch(err){
-        res.status(400).send("Nhi hua data add",err.message);
+        res.status(400).send(`can't add data please enter the required fields ${err.message}`);
     }
 });
 
@@ -54,7 +54,17 @@ app.get("/user/gender", async (req,res)=>{
     }
 });
 
+app.delete("/delete/gender",async (req,res)=>{
 
+    const userGen = req.body.gender;
+
+    try{
+        const userDel = await userModel.deleteOne({gender : userGen});
+        res.send("User deleted successfully"); 
+    }catch(err){
+        res.status("404").send(err.message);
+    }
+});
 
 
 
@@ -72,6 +82,47 @@ app.get("/feed",async (req,res)=>{
     }
 });
 
+app.patch("/update/age", async (req,res)=>{
+    const un = req.body.firstName;
+    const uage = req.body.age;
+
+    try{
+        const changeAge = await userModel.findOneAndUpdate({firstName : un}, {age : uage}, {
+            runValidators : true
+        });
+        res.send("age updated successfully!");
+    }catch(err){
+        res.status(400).send("age update failed!");
+    }
+});
+
+app.patch("/update/gender", async (req,res)=>{
+    const un = req.body.firstName;
+    const ugen = req.body.gender;
+
+    try{
+        const changeAge = await userModel.findOneAndUpdate({firstName : un}, {gender : ugen}, {
+            runValidators : true,
+            returnDocument : "after"
+        });
+        res.send("gender updated successfully!");
+    }catch(err){
+        res.status(400).send(`gender update failed! because ${err.message}`);
+    }
+});
+
+
+
+app.get("/",(req,res)=>{
+    res.send("Testing server ==> Test passed!!");
+});
+
+
+
+// API to update the data of the user
+
+
+
 
 
 
@@ -83,7 +134,7 @@ app.get("/feed",async (req,res)=>{
 connectDB()
 .then(() => {
         console.log("Database connection established");
-        app.listen(7777,()=>{
+        app.listen(3000,()=>{
         console.log("server connection established");
     });
     })

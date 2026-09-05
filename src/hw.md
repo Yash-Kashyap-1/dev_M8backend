@@ -53,3 +53,16 @@ create an update user api
 explore mongoose doc for model
 What are options in Model.findOneandUpdate methods
 ===>> create an api which updates the user using email id like user id sai refer na krke email id sai document refer krke usko update krne ka hai  ==> used find one and update
+
+
+
+// day6
+
+explore schematype options from the documentation
+add unique, required , lowercase , default, trim 
+create a custom validate function for gender
+Improve the database schema - put appropriate validations on each field in schema 
+Add timestamps to the user schema 
+Add API level validation on Patch Request & signup post api 
+Add API validations for each field in schema 
+

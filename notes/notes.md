@@ -10,7 +10,10 @@ Nextday
 
 post and patch api are the one's which are inserting some data into the database............
 By default, Validate method will only be called when a new document is created/that is when a post api call is made.
-This validate function will not run by default when you try to update a field using Patch method. You have to enable it to run on updates also.  runValidators : true
+This validate function will not run by default when you try to update a field using Patch method. You have to enable it to run on updates also. ==> runValidators : true in the model.findOneAndUpdate
 
+
+
+Maye you don't have UI validations but you must always have backend validations
 
 {timestamp is passed as the second argument in mongoose.Schema}

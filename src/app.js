@@ -82,34 +82,105 @@ app.get("/feed",async (req,res)=>{
     }
 });
 
-app.patch("/update/age", async (req,res)=>{
-    const un = req.body.firstName;
-    const uage = req.body.age;
+app.patch("/update/:uid", async (req,res)=>{
+
+    const uid = req.params?.uid;
+    const data = req.body;
 
     try{
-        const changeAge = await userModel.findOneAndUpdate({firstName : un}, {age : uage}, {
-            runValidators : true
-        });
-        res.send("age updated successfully!");
+        const ALLOWED_UPDATES = [
+            "firstName","lastName","photoURL","age","skills","about","gender","password"
+        ];
+
+        const isUpdAllowed = Object.keys(data).every((k)=>ALLOWED_UPDATES.includes(k));
+
+        if(!isUpdAllowed){
+            throw new Error("dude can't change this");
+        }
+
+        if(data?.skills.length > 10){
+            throw new Error("Please enter only 10 Skills ");
+        }
+        const updatedDoc = await userModel.findByIdAndUpdate({_id : uid}, data, {runValidators : true});
+        res.send("Updates done!!");
     }catch(err){
-        res.status(400).send("age update failed!");
+        res.send("Error "+err.message);
     }
 });
 
-app.patch("/update/gender", async (req,res)=>{
-    const un = req.body.firstName;
-    const ugen = req.body.gender;
+    //   const ALLOWED_UPDATES = [
+    //       "photoURL",
+    //       "about",
+    //       "gender",
+    //       "skills",
+    //       "firstName",
+    //       "lastName",
+    //       "age"
+    //   ];
 
-    try{
-        const changeAge = await userModel.findOneAndUpdate({firstName : un}, {gender : ugen}, {
-            runValidators : true,
-            returnDocument : "after"
-        });
-        res.send("gender updated successfully!");
-    }catch(err){
-        res.status(400).send(`gender update failed! because ${err.message}`);
-    }
-});
+    //   const isUpdateAllowed = Object.keys(data).every((k) => ALLOWED_UPDATES.includes(k));
+
+    //   if (!isUpdateAllowed) {
+    //       throw new Error("Update Not Allowed")
+    //   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// app.patch("/update/age", async (req,res)=>{
+//     const un = req.body.firstName;
+//     const uage = req.body.age;
+
+//     try{
+//         const changeAge = await userModel.findOneAndUpdate({firstName : un}, {age : uage}, {
+//             runValidators : true
+//         });
+//         res.send("age updated successfully!");
+//     }catch(err){
+//         res.status(400).send("age update failed!");
+//     }
+// });
+
+
+
+
+// app.patch("/update/gender", async (req,res)=>{
+//     const un = req.body.firstName;
+//     const ugen = req.body.gender;
+
+//     try{
+//         const changeAge = await userModel.findOneAndUpdate({firstName : un}, {gender : ugen}, {
+//             runValidators : true,
+//             returnDocument : "after"
+//         });
+//         res.send("gender updated successfully!");
+//     }catch(err){
+//         res.status(400).send(`gender update failed! because ${err.message}`);
+//     }
+// });
 
 
 

@@ -17,3 +17,5 @@ This validate function will not run by default when you try to update a field us
 Maye you don't have UI validations but you must always have backend validations
 
 {timestamp is passed as the second argument in mongoose.Schema}
+Your database should not be polluted ==>> If you are a good coder you should validate everything you can't just trust everything that comes from user side
+==> Never in your life trust Req.body

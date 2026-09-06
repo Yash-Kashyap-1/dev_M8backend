@@ -77,6 +77,31 @@ const userSchema = new mongoose.Schema({
     }
 );
 
+// for jwt
+    userSchema.methods.getjwt = async function () {  // Arrow function will break things up here(this keyword doesn't work with arrow function)
+
+    const user = this; // Represents the instances of a user model // this refers to the particular instance which is logging in
+    const token = await jwt.sign({_id : user.id}, "DEV@TINDER",{expiresIn : "1d"});
+
+    
+
+    return token;
+}
+
+
+// for password validation
+userSchema.methods.validatePassword = async function (passwordInputByUser) {
+    const user = this;
+    const passwordHash = user.password;
+    const isValidPassword = await bcrypt.compare(passwordInputByUser, passwordHash);
+    return isValidPassword;
+
+}
+
+
+
+
+
 const userModel = mongoose.model("user",userSchema);     //mongoose.model(nameofModel,schema)
-module.exports = {userModel};
+module.exports = {userModel,getjwt};
 

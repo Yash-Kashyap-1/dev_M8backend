@@ -5,6 +5,7 @@ const validateSignupData = require("./utils/validation");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
+const getJwt = require("./models/user");
 const {userAuth} = require("./middlewares/auth");
 const app = express();
 
@@ -55,7 +56,11 @@ app.post("/login", async (req,res)=>{
         if(isPasswordValid){
 
             // Create a JWT Token
-            const token = await jwt.sign({_id : user.id}, "DEV@TINDER",{expiresIn : "1d"})            // create the token hiding the user id in it and sending it back to user 
+            // const token = await jwt.sign({_id : user.id}, "DEV@TINDER",{expiresIn : "1d"});            // create the token hiding the user id in it and sending it back to user 
+            
+            // alternate way to create jwt tokens using schema methods
+            
+            const token = await user.getJwt();
             console.log(token);
 
             // Add the token to cookie and send the response back to user

@@ -75,3 +75,16 @@ Create login api and write the logic by your own
 compare passwords and throw errors if email or password is invalid
 
 
+// auth h/w
+
+Install cookie Parser
+Send a dummy cookie to user 
+Get Profile API and check if you get the cookie back res.cookie()
+Install JSON web token
+In login api after email and password validation create a jwt token send it back to user inside the cookie 
+Read the cookies inside your profile API and find the logged in user 
+
+
+Write User Auth MiddleWare 
+Add the User Auth Middleware in Profile Api and a new sendConnectionRequest Api
+Set the expiry of JWT tokens and cookies for 7 days

@@ -3,10 +3,13 @@ const {connectDB} = require("./config/database");
 const {userModel} = require("./models/user");
 const validateSignupData = require("./utils/validation");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+const {userAuth} = require("./middlewares/auth");
 const app = express();
 
 app.use(express.json()); // Now our middleware will be activated for all the routes 
-
+app.use(cookieParser());// Now when the request will come you will be able to read the cookies back
 
 app.post("/signup",async (req,res)=>{
     
@@ -39,7 +42,6 @@ app.post("/signup",async (req,res)=>{
 app.post("/login", async (req,res)=>{
 
     // Login Authentication 
-
     try{
         const {email, password} = req.body;
         // First we will check if the user with the given email has sign up earlier or not which means 
@@ -51,6 +53,13 @@ app.post("/login", async (req,res)=>{
         const isPasswordValid = await bcrypt.compare(password, user.password); // This is also a promise and returns true or false
 
         if(isPasswordValid){
+
+            // Create a JWT Token
+            const token = await jwt.sign({_id : user.id}, "DEV@TINDER",{expiresIn : "1d"})            // create the token hiding the user id in it and sending it back to user 
+            console.log(token);
+
+            // Add the token to cookie and send the response back to user
+            res.cookie("token", token, {expires : new Date(Date.now() + 8 * 3600000)});
             res.send("Login successful");
         }
         else{
@@ -60,11 +69,62 @@ app.post("/login", async (req,res)=>{
         res.status(400).send("Error: "+err.message);
     }
 
+});
 
+
+// app.get("/profile", async (req,res)=>{
+//     try{                                                      before auth Middleaware 
+        
+//     const cookies = req.cookies;
+
+
+//     const {token} = cookies;
+
+//     if(!token){
+//         throw new Error("Please login again");
+//     }
+
+//     // Validate the token if validation done, then serve the request i.e send the response else login again(When token is expired)
+//     const isTokenValid = jwt.verify(token,"DEV@TINDER");  // jwt.token(token, secret Key)
+//     //this does not give you a boolean it gives you a decoded message
+//     // console.log(isTokenValid);
+//     const { _id } = isTokenValid;
+//     console.log("Logged in user is "+_id);
+//     const user = await userModel.findById(_id);
+//     // console.log(cookies);
+//     // console.log(token);
+//     if(!user){
+//         throw new Error("Login failed");
+//     }
+//     res.send(user);
+//     }catch(err){
+//         res.send(err.message);
+//     }
+// });
+
+app.get("/profile", userAuth, async(req,res)=>{   // After using Auth middleWare 
+
+    try{
+        const user = req.user;
+        res.send(user);
+
+    }catch(err){
+        res.send("Error: "+ err.message);
+    }
+});
+
+app.post("/sendConnectionRequest", userAuth, async (req,res)=>{
+     
+    const user = req.user;
+
+    console.log("Send connection Request");
+
+
+    res.send(user.firstName +" sent Connection Request");
 });
 
 // Get user by email
-app.get("/user/email",async (req,res)=>{
+app.get("/user/email", async (req,res)=>{
     const userEmail = req.body.email;
 
     try{

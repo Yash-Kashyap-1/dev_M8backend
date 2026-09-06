@@ -1,1 +1,1 @@
-req.body
+sendConnectionRequest
